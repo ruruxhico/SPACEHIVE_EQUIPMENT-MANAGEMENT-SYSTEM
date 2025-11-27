@@ -41,8 +41,29 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="position" class="form-label">Role</label>
-                        <input type="text" name="position" id="position" class="form-control" style="text-transform: uppercase" value="<?= set_value('position'); ?>">
+                        <select name="position" id="position" class="form-control">
+                            <option value="" disabled selected>Select role</option>
+                            <option value="ASSOCIATE" <?= set_select('position', 'ASSOCIATE'); ?>>ASSOCIATE</option>
+                            <option value="STUDENT" <?= set_select('position', 'STUDENT'); ?>>STUDENT</option>
+                        </select>
                     </div>
+
+                    <div id="associate-fields" style="display: none;">
+                        <h5 class="mt-4">Associate Confirmation</h5>
+                        <div class="form-group mb-3">
+                            <label for="associate_key" class="form-label">Associate Key</label>
+                            <input type="text" name="associate_key" id="associate_key" class="form-control" value="<?= old('associate_key'); ?>">
+                        </div>
+                    </div>
+
+                    <div id="student-fields" style="display: none;">
+                        <h5 class="mt-4">Student Confirmation</h5>
+                        <div class="form-group mb-3">
+                            <label for="student_number" class="form-label">Student Number</label>
+                            <input type="text" name="student_number" id="student_number" class="form-control" value="<?= old('student_number'); ?>">
+                        </div>
+                    </div>
+
                     <div class="form-group mb-2">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control">
@@ -59,4 +80,31 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const positionDropdown = document.getElementById('position');
+            const associateFields = document.getElementById('associate-fields');
+            const studentFields = document.getElementById('student-fields');
+
+            positionDropdown.addEventListener('change', function() {
+                // Hide all confirmation fields first
+                associateFields.style.display = 'none';
+                studentFields.style.display = 'none';
+
+                // Check the selected value and show the relevant fields
+                const selectedPosition = this.value;
+
+                if (selectedPosition === 'ASSOCIATE') {
+                    associateFields.style.display = 'block';
+                } else if (selectedPosition === 'STUDENT') {
+                    studentFields.style.display = 'block';
+                }
+            });
+
+            // Trigger on page load in case of validation error (using old data)
+            positionDropdown.dispatchEvent(new Event('change'));
+        });
+    </script>
+
 </main>

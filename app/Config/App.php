@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost/spacehive/Equipment-Management-System/';
+    public string $baseURL = 'http://localhost/spacehive/SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
