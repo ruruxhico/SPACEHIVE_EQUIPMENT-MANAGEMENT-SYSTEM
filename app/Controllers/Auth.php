@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\Model_Users;
+ use App\Models\UserModel;
+
 class Auth extends BaseController
 {
     public function index()
@@ -24,7 +25,7 @@ class Auth extends BaseController
     {
         //dd('LoginSubmit reached');
         $session = session();
-        $usersModel = new Model_Users();
+        $usersModel = new UserModel();
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         $user = $usersModel->where('email', $email)->first();
@@ -82,7 +83,7 @@ class Auth extends BaseController
     {
         $session = session();
         $validation = service('validation');
-        $usersModel = new Model_Users();
+        $usersModel = new UserModel();
 
         $data = array(
             'position' => strtoupper($this->request->getPost('position')),
