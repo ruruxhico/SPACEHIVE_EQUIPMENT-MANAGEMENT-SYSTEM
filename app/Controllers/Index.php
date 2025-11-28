@@ -6,7 +6,7 @@ class Index extends BaseController {
     public function index() {
         // Add dynamic data to the views
         $data = array(
-            'title' => 'Welcome to Lola Nena\'s Sisigan',
+            'title' => 'FEU Tech ITSO Equipment Management',
             // This can be from the database
         );
 

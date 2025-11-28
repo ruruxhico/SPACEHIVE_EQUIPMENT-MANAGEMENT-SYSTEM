@@ -17,10 +17,10 @@
     ?>
 
     <div class="d-flex align-items-center justify-content-center" style="min-height: 80vh">
-        <div class="col col-md-5 mx-auto">
+        <div class="col col-md-12 mx-auto">
             <h2 class="mb-3 text-center">Sign Up</h2>
 
-            <div class="p-4 rounded shadow-sm bg-light text-dark">
+            <div class="p-4 rounded shadow-sm custom-bg text-dark">
                 <form id="userForm" action="<?= base_url('auth/signup') ?>" method="post">
                     <?= csrf_field() ?>
                     <div class="form-group mb-3">

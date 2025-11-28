@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Index::index');
 
 //trial routes for Auth
 // Routes for the Users controller
@@ -30,6 +30,7 @@ $routes->get('products/delete/(:num)', 'Products::delete/$1');
 $routes->post('products/delete/(:num)', 'Products::delete/$1');
 
 //Routes for Auth
+$routes->get('login', 'Auth::login');
 $routes->get('auth/login', 'Auth::login');
 $routes->post('auth/login', 'Auth::loginSubmit');
 $routes->get('auth/signup', 'Auth::signup');

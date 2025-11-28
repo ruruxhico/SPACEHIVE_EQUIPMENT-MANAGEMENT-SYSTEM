@@ -19,7 +19,7 @@
         <div class="col-12 col-md-5 mx-auto">
             <h2 class="mb-3 text-center">Login</h2>
 
-            <div class="p-4 rounded shadow-sm bg-light text-dark">
+            <div class="p-4 rounded shadow-sm custom-bg text-dark">
                 <form id="userForm" action="<?= base_url('auth/login') ?>" method="post">
                     <?= csrf_field() ?>
                     <div class="form-group mb-3">

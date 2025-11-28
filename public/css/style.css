@@ -1,16 +1,40 @@
 /* === GENERAL STYLES === */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #5a0a05;
+    background-color: #007f4a;
     color: #fff;
     margin: 0;
     padding: 0;
 }
 
-h2{
-    margin: 50px 0;
-    font-weight: bold;
+.main {
+    padding: 5rem;
+    min-height: 100vh;
+
 }
+
+.main p {
+    font-size: 1rem;
+}
+
+.custom-bg {
+    background: rgba(255, 255, 255, 0.15); /* transparent white */
+    backdrop-filter: blur(10px);           /* the blur effect */
+    -webkit-backdrop-filter: blur(10px);   /* for Safari */
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+
+}
+
+h2{
+    margin: 25px 0;
+    font-weight: semi-bold;
+    font-size: larger;
+}
+
+
 
 .form-label{
     color: #5a0a05;
