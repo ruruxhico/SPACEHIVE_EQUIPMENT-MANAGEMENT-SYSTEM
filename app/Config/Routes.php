@@ -19,7 +19,7 @@ $routes->post('users/delete/(:num)', 'Users::delete/$1');
 $routes->get('users/delete/(:num)', 'Users::delete/$1');
 
 
-// Equipment Management Routes
+// Equipment Routes
 $routes->get('equipment', 'Equipment::index');
 $routes->get('equipment/add', 'Equipment::add');
 $routes->post('equipment/insert', 'Equipment::insert');

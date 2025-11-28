@@ -1,6 +1,6 @@
 <div class="container-fluid mt-4">
     
-    <!-- 1. CENTERED TITLE -->
+    <!-- title -->
     <div class="row mb-4">
         <div class="col-12 text-center">
             <h2 class="text-light font-weight-bold"><?= esc($title) ?></h2>
@@ -11,35 +11,25 @@
         <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
     <?php endif; ?>
 
-    <!-- START OF FILTER FORM -->
+    <!-- filters -->
     <form action="<?= base_url('equipment') ?>" method="get">
         
-        <!-- 2. ADD BUTTON (LEFT) AND SEARCH (RIGHT) -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-            
-            <!-- Left: Add Button -->
             <a href="<?= base_url('equipment/add') ?>" class="btn btn-primary shadow-sm">
                 <i class="fas fa-plus"></i> Add New Equipment
             </a>
-
-            <!-- Right: Search Bar -->
             <div class="form-inline">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search ID or Name..." value="<?= esc($current_search) ?>">
                     <div class="input-group-append">
-                        <button class="btn btn-warning" type="submit">
-                            <i class="fas fa-search">Submit</i>
-                        </button>
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- FILTER CARD -->
-        <div class="card shadow mb-3">
-            <div class="card-body bg-light p-3">
-                
-                <!-- 3. ROWS SHOWN (Right above filters) -->
+        <div class="card mb-3 bg-light border-0">
+            <div class="card-body p-3">
                 <div class="row mb-2">
                     <div class="col-md-2">
                         <label class="small font-weight-bold mb-1">Show Rows</label>
@@ -51,10 +41,20 @@
                     </div>
                 </div>
 
-                <!-- 4. FILTERS (Right above table) -->
                 <div class="row">
-                    <!-- Sort Name -->
                     <div class="col-md-3 mb-2">
+                        <label class="small font-weight-bold mb-1">Equipment Name</label>
+                        <select name="type" class="form-control" onchange="this.form.submit()">
+                            <option value="">All Types</option>
+                            <?php if(isset($types)): foreach ($types as $t): ?>
+                                <option value="<?= $t['type_id'] ?>" <?= $current_type == $t['type_id'] ? 'selected' : '' ?>>
+                                    <?= esc($t['name']) ?>
+                                </option>
+                            <?php endforeach; endif; ?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 mb-2">
                         <label class="small font-weight-bold mb-1">Sort Name</label>
                         <select name="sort" class="form-control" onchange="this.form.submit()">
                             <option value="">Default</option>
@@ -63,46 +63,40 @@
                         </select>
                     </div>
 
-                    <!-- Quantity Filter -->
-                    <div class="col-md-3 mb-2">
-                        <label class="small font-weight-bold mb-1">Quantity (Max 15)</label>
+                    <div class="col-md-2 mb-2">
+                        <label class="small font-weight-bold mb-1">Quantity</label>
                         <div class="input-group">
-                            <input type="number" name="quantity" class="form-control" placeholder="Enter a Number" max="15" value="<?= esc($current_qty) ?>">
+                            <input type="number" name="quantity" class="form-control" placeholder="0" value="<?= esc($current_qty) ?>">
                             <div class="input-group-append">
-                                <!-- Small button to apply quantity if user doesn't press enter -->
                                 <button class="btn btn-outline-secondary" type="submit">Go</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Status Filter -->
                     <div class="col-md-3 mb-2">
                         <label class="small font-weight-bold mb-1">Status</label>
                         <select name="status" class="form-control" onchange="this.form.submit()">
                             <option value="">All Statuses</option>
-                            <option value="Available" <?= $current_status == 'Available' ? 'selected' : '' ?>>Available</option>
-                            <option value="Borrowed" <?= $current_status == 'Borrowed' ? 'selected' : '' ?>>Borrowed</option>
-                            <option value="Unusable" <?= $current_status == 'Unusable' ? 'selected' : '' ?>>Unusable</option>
+                            <option value="Available" class="text-success font-weight-bold" <?= $current_status == 'Available' ? 'selected' : '' ?>>&#9679; Available</option>
+                            <option value="Borrowed" class="text-danger font-weight-bold" <?= $current_status == 'Borrowed' ? 'selected' : '' ?>>&#9679; Borrowed</option>
+                            <option value="Unusable" class="text-secondary font-weight-bold" <?= $current_status == 'Unusable' ? 'selected' : '' ?>>&#9679; Unusable</option>
                         </select>
                     </div>
 
-                    <!-- Reset Button -->
-                    <div class="col-md-1 mb-2 d-flex align-items-end">
-                        <a href="<?= base_url('equipment') ?>" class="btn btn-secondary btn-block" title="Reset Filters"><i class="fas fa-undo">Reset Filters</i></a>
+                    <div class="col-md-2 mb-2 d-flex align-items-end">
+                        <a href="<?= base_url('equipment') ?>" class="btn btn-secondary btn-block" title="Reset Filters"><i class="fas fa-undo"></i> Reset</a>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </form>
 
-    <!-- MAIN TABLE --> 
-    <div class="card shadow">
+    <!-- table main -->
+    <div class="card bg-transparent border-0">
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover table-striped mb-0">
-                    <thead class="bg-dark text-white">
+                <table class="table table-hover table-striped mb-0 bg-white">
+                    <thead class="table-dark text-white">
                         <tr>
                             <th width="10%">Image</th>
                             <th>ID</th>
@@ -117,7 +111,6 @@
                         <?php if (!empty($equipment)): ?>
                             <?php foreach ($equipment as $item): ?>
                                 <tr>
-                                    <!-- IMAGE -->
                                     <td class="text-center align-middle">
                                         <?php 
                                             $imgName = $item['image'] ? $item['image'] : 'default.png';
@@ -126,18 +119,12 @@
                                         <img src="<?= $imgUrl ?>" class="img-thumbnail rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" onerror="this.src='<?= base_url('uploads/default.png') ?>'">
                                     </td>
                                     
-                                    <!-- ID -->
                                     <td class="align-middle font-weight-bold text-primary"><?= esc($item['property_tag']) ?></td>
-                                    
-                                    <!-- NAME -->
                                     <td class="align-middle"><?= esc($item['type_name']) ?></td>
-                                    
-                                    <!-- ACCESSORIES -->
                                     <td class="align-middle small">
                                         <?= !empty($item['accessories']) ? esc($item['accessories']) : '<span class="text-muted font-italic">None</span>' ?>
                                     </td>
 
-                                    <!-- QUANTITY -->
                                     <td class="align-middle">
                                         <?php 
                                             $avail = $item['available_quantity'];
@@ -153,29 +140,27 @@
                                         </div>
                                     </td>
 
-                                    <!-- STATUS -->
                                     <td class="align-middle">
                                         <?php 
-                                            $badge = 'secondary';
-                                            if($item['status'] == 'Available') $badge = 'success';
-                                            elseif($item['status'] == 'Borrowed') $badge = 'warning';
-                                            elseif($item['status'] == 'Unusable') $badge = 'danger';
+                                            $bgClass = 'bg-secondary';
+                                            if($item['status'] == 'Available') $bgClass = 'bg-success';
+                                            elseif($item['status'] == 'Borrowed') $bgClass = 'bg-danger';
                                         ?>
-                                        <span class="badge badge-<?= $badge ?> p-2"><?= esc($item['status']) ?></span>
+                                        <span class="badge <?= $bgClass ?> p-2"><?= esc($item['status']) ?></span>
                                     </td>
 
-                                    <!-- ACTIONS -->
                                     <td class="align-middle">
                                         <div class="btn-group">
                                             <a href="<?= base_url('equipment/view/' . $item['property_tag']) ?>" class="btn btn-sm btn-info" title="View"><i class="fas fa-eye"></i></a>
                                             <a href="<?= base_url('equipment/edit/' . $item['property_tag']) ?>" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-pen"></i></a>
+                                            
                                             <?php if($item['status'] !== 'Unusable'): ?>
-                                                <a href="<?= base_url('equipment/deactivate/' . $item['property_tag']) ?>" 
-                                                   class="btn btn-sm btn-danger" 
-                                                   onclick="return confirm('Are you sure you want to Archive this item?');" 
-                                                   title="Archive">
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-danger" 
+                                                        onclick="openDeactivateModal('<?= esc($item['property_tag']) ?>')" 
+                                                        title="Archive">
                                                     <i class="fas fa-archive"></i>
-                                                </a>
+                                                </button>
                                             <?php endif; ?>
                                         </div>
                                     </td>
@@ -188,12 +173,89 @@
                 </table>
             </div>
         </div>
-        <!-- PAGINATION LINKS -->
-        <div class="card-footer py-3">
+        <div class="card-footer py-3 bg-transparent border-0">
             <div class="d-flex justify-content-center">
-                <!-- We pass the current GET parameters to the pager so links don't lose filters -->
                 <?= $pager->links('default', 'default_full') ?> 
             </div>
         </div>
     </div>
 </div>
+
+<!-- deac modal-->
+
+<div class="modal fade" id="deactivateModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title font-weight-bold">
+            <i class="fas fa-exclamation-triangle"></i> Deactivate Equipment
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        
+        <p class="mb-3 lead">Are you sure you want to deactivate this equipment?</p>
+        
+        <div class="alert alert-warning">
+            If yes, please re-type the equipment ID <br>
+            <strong id="targetIdDisplay" class="h5"></strong>
+        </div>
+
+        <input type="text" id="confirmIdInput" class="form-control form-control-lg text-center" placeholder="Type ID here..." autocomplete="off">
+        <small class="text-muted d-block mt-2">The button will enable when IDs match.</small>
+      
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        
+        <a href="#" id="confirmDeactivateBtn" class="btn btn-danger disabled" style="pointer-events: none;">
+            Yes, Deactivate
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    let currentTargetId = '';
+    
+    var myDeactivateModal;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var modalEl = document.getElementById('deactivateModal');
+        if (modalEl) {
+            myDeactivateModal = new bootstrap.Modal(modalEl);
+        }
+    });
+
+    function openDeactivateModal(id) {
+        currentTargetId = id;
+        
+        document.getElementById('targetIdDisplay').innerText = id;
+        document.getElementById('confirmIdInput').value = '';
+        
+        let btn = document.getElementById('confirmDeactivateBtn');
+        btn.classList.add('disabled');
+        btn.style.pointerEvents = 'none';
+        btn.href = "<?= base_url('equipment/deactivate/') ?>/" + id;
+
+        if (myDeactivateModal) {
+            myDeactivateModal.show();
+        } else {
+            new bootstrap.Modal(document.getElementById('deactivateModal')).show();
+        }
+    }
+
+    document.getElementById('confirmIdInput').addEventListener('input', function() {
+        let inputVal = this.value;
+        let btn = document.getElementById('confirmDeactivateBtn');
+
+        if (inputVal === currentTargetId) {
+            btn.classList.remove('disabled');
+            btn.style.pointerEvents = 'auto';
+        } else {
+            btn.classList.add('disabled');
+            btn.style.pointerEvents = 'none';
+        }
+    });
+</script>
