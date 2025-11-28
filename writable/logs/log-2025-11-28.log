@@ -1,0 +1,604 @@
+DEBUG - 2025-11-28 09:02:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 09:11:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 09:11:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 09:19:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 09:19:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 09:20:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-11-28 09:20:16 --> CodeIgniter\Database\Exceptions\DataException: There is no primary key defined when trying to make insert.
+[Method: POST, Route: auth/signup]
+in SYSTEMPATH\Model.php on line 358.
+ 1 SYSTEMPATH\Model.php(358): CodeIgniter\Database\Exceptions\DataException::forEmptyPrimaryKey('insert')
+ 2 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 3 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 4 APPPATH\Controllers\Auth.php(109): CodeIgniter\Model->insert([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->signupSubmit()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 09:20:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 10:33:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-11-28 10:35:12 --> mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause' in C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipme...', 0)
+#1 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipme...')
+#2 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipme...')
+#3 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipme...', Array, false)
+#4 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+#6 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+#7 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\app\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+#8 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(933): App\Controllers\Equipment->index()
+#9 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+#10 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-28 10:35:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+[Method: GET, Route: equipment]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 4 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 5 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 10:35:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 6 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 7 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 10:35:12 --> [Caused by] mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 7 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 8 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 10:35:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-11-28 10:35:55 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "equipment\view_equipment.php"
+[Method: GET, Route: equipment]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('equipment\\view_equipment.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('equipment\\view_equipment', [], true)
+ 3 APPPATH\Controllers\Equipment.php(26): view('equipment\\view_equipment', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-28 11:59:03 --> mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause' in C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipme...', 0)
+#1 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipme...')
+#2 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipme...')
+#3 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipme...', Array, false)
+#4 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+#6 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+#7 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\app\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+#8 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(933): App\Controllers\Equipment->index()
+#9 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+#10 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-28 11:59:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+[Method: GET, Route: equipment]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 4 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 5 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 11:59:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 6 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 7 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 11:59:03 --> [Caused by] mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 7 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 8 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-28 11:59:05 --> mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause' in C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipme...', 0)
+#1 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipme...')
+#2 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipme...')
+#3 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipme...', Array, false)
+#4 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+#6 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+#7 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\app\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+#8 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(933): App\Controllers\Equipment->index()
+#9 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+#10 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-28 11:59:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+[Method: GET, Route: equipment]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 4 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 5 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 11:59:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 6 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 7 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 11:59:05 --> [Caused by] mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 7 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 8 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-28 12:00:51 --> mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause' in C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipme...', 0)
+#1 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipme...')
+#2 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipme...')
+#3 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipme...', Array, false)
+#4 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+#6 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+#7 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\app\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+#8 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(933): App\Controllers\Equipment->index()
+#9 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+#10 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-28 12:00:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+[Method: GET, Route: equipment]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 4 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 5 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 12:00:51 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 6 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 7 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 12:00:51 --> [Caused by] mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 7 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 8 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 12:01:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-11-28 12:01:12 --> mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause' in C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipme...', 0)
+#1 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipme...')
+#2 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipme...')
+#3 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipme...', Array, false)
+#4 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+#6 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+#7 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\app\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+#8 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(933): App\Controllers\Equipment->index()
+#9 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+#10 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\spacehive\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-28 12:01:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+[Method: GET, Route: equipment]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 4 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 5 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 12:01:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 6 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 7 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 12:01:12 --> [Caused by] mysqli_sql_exception: Unknown column 'equipment_assets.created_at' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `equipment_assets`.*, `equipment_types`.`name` as `type_name`, `equipment_types`.`type_code`
+FROM `equipment_assets`
+JOIN `equipment_types` ON `equipment_types`.`type_id` = `equipment_assets`.`type_id`
+ORDER BY `equipment_assets`.`created_at` DESC
+ LIMIT 10', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(10, 0)
+ 7 SYSTEMPATH\BaseModel.php(1281): CodeIgniter\BaseModel->findAll(10, 0)
+ 8 APPPATH\Controllers\Equipment.php(21): CodeIgniter\BaseModel->paginate(10)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 12:03:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:03:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:04:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:04:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:05:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:06:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:07:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:08:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 12:08:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:18:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:18:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:29:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:30:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:30:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:40:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:41:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:41:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:41:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:42:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:46:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:46:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:46:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:47:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:48:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:48:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:49:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:49:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:51:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:51:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:51:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 13:52:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:01:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:08:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:11:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:14:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:15:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-11-28 14:15:03 --> ErrorException: Undefined array key "accessory_list"
+[Method: GET, Route: equipment/add]
+in APPPATH\Views\equipment\view_add.php on line 35.
+ 1 APPPATH\Views\equipment\view_add.php(35): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "accessory_list"', 'C:\\xampp\\htdocs\\spacehive\\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\\app\\Views\\equipment\\view_add.php', 35)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\spacehive\\SPACEHIVE_EQUIPMENT-MANAGEMENT-SYSTEM\\app\\Views\\equipment\\view_add.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('equipment\\view_add', [], true)
+ 5 APPPATH\Controllers\Equipment.php(99): view('equipment\\view_add', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->add()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 14:17:37 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::selectGroupConcat()
+[Method: GET, Route: equipment/add]
+in APPPATH\Controllers\Equipment.php on line 102.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->add()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 14:17:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-11-28 14:17:44 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::selectGroupConcat()
+[Method: GET, Route: equipment/add]
+in APPPATH\Controllers\Equipment.php on line 102.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Equipment->add()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Equipment))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 14:18:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:19:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:22:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:24:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 14:34:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:00:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:03:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:03:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:03:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-11-28 15:03:26 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "view_index.php"
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('view_index.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('view_index', [], true)
+ 3 APPPATH\Controllers\Auth.php(14): view('view_index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-28 15:04:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:06:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:06:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:07:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:07:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-11-28 15:16:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
