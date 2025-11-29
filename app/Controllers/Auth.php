@@ -21,7 +21,7 @@ class Auth extends BaseController
             .view('auth\view_login');
     }
 
-    public function loginSubmit()
+public function loginSubmit()
     {
         $session = session();
         $usersModel = new UserModel();
@@ -30,21 +30,32 @@ class Auth extends BaseController
         
         $user = $usersModel->where('email', $email)->first();
 
+        // 1. Check if Email Exists
         if (!$user) {
             $session->setFlashdata('error', 'Email not found.');
             return redirect()->back()->withInput();
         }
 
+        // ============================================================
+        // 2. CRITICAL CHECK: IS THE USER ACTIVE?
+        // This prevents "Archived/Deactivated" users from logging in.
+        // ============================================================
+        if ($user['status'] !== 'Active') {
+            $session->setFlashdata('error', 'Your account is inactive or deactivated. Please contact the administrator.');
+            return redirect()->back()->withInput();
+        }
+
+        // 3. Check Password
         if (!password_verify($password, $user['password'])) {
             $session->setFlashdata('error', 'Incorrect password.');
             return redirect()->back()->withInput();
         }
 
-        // Login success
+        // 4. Login Success
         $sessionData = [
-            'id' => $user['school_id'], // Use school_id as the session ID
+            'id' => $user['school_id'],
             'email' => $user['email'],
-            'role' => $user['role'],    // Useful to store role in session
+            'role' => $user['role'],
             'isLoggedIn' => true,
         ];
 
@@ -114,8 +125,28 @@ class Auth extends BaseController
         
         $usersModel->insert($data);
 
-        return redirect()->to('auth/login')->with('success', 'Account created successfully! Please login.');
-    }
+            // --- 8. SEND CUSTOM EMAIL ---
+            $email = service('email');
+            
+            // Prepare data for the View
+            $emailData = [
+                'name' => $data['first_name'] . ' ' . $data['last_name'],
+                'role' => $role,
+                'link' => base_url("auth/verify/" . $data['verifytoken'])
+            ];
+
+            // Load the HTML View as a String
+            $message = view('emails/verify_account', $emailData);
+
+            $email->setTo($data['email']);
+            $email->setSubject('Activate Your Account - ITSO Inventory');
+            $email->setMessage($message); // Send the HTML we just loaded
+            
+            if ($email->send()) {
+                return redirect()->to('auth/login')->with('success', 'Registration successful! Please check your email to verify.');
+            } else {
+                return redirect()->to('auth/login')->with('error', 'Account created, but email failed. Contact Admin.');
+            }    }
 
     public function verify($token)
     {

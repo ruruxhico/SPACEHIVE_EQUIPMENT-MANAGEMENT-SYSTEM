@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 // 1. THE TRAFFIC COP (Root URL)
 // Checks if logged in. If yes -> Dashboard. If no -> Landing Page.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Index::index');
 
 // 2. THE DASHBOARD (Logged In Users Only)
 // Checks User Role (ITSO, Associate, Student) and shows specific view.

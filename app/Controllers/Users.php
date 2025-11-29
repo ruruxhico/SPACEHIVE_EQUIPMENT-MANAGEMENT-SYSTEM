@@ -6,17 +6,20 @@ use App\Models\UserModel;
 
 class Users extends BaseController
 {
-    public function index($perpage = 5)
+    public function index()
     {
-
-        // SECURITY CHECK: Only ITSO can access this
-        if (session()->get('role') !== 'ITSO') {
-            return redirect()->to('dashboard')->with('error', 'Access Denied: You are not authorized to view Users.');
-        }
-
         $usersModel = new UserModel();
 
-        $search = $this->request->getGet('search');
+        // --- 1. GET FILTER REQUESTS ---
+        $search   = $this->request->getGet('search');
+        $sort     = $this->request->getGet('sort');       // name_asc, name_desc
+        $role     = $this->request->getGet('role');       // ITSO, ASSOCIATE, STUDENT
+        $status   = $this->request->getGet('status');     // Active, Inactive
+        $perPage  = $this->request->getGet('per_page') ?? 5; // Default 5 rows
+
+        // --- 2. APPLY FILTERS ---
+        
+        // Search (ID, First Name, or Last Name)
         if (!empty($search)) {
             $usersModel->groupStart()
                 ->like('first_name', $search)
@@ -25,13 +28,38 @@ class Users extends BaseController
             ->groupEnd();
         }
 
-        $usersModel->orderBy('created_at', 'DESC');
+        // Role Filter
+        if (!empty($role)) {
+            $usersModel->where('role', $role);
+        }
 
+        // Status Filter
+        if (!empty($status)) {
+            $usersModel->where('status', $status);
+        }
+
+        // --- 3. SORTING ---
+        if ($sort == 'name_asc') {
+            $usersModel->orderBy('last_name', 'ASC');
+        } elseif ($sort == 'name_desc') {
+            $usersModel->orderBy('last_name', 'DESC');
+        } else {
+            // Default Sort: Newest users first
+            $usersModel->orderBy('created_at', 'DESC');
+        }
+
+        // --- 4. PREPARE DATA ---
         $data = [
             'title' => 'User Management',
-            'users' => $usersModel->paginate($perpage),
+            'users' => $usersModel->paginate($perPage),
             'pager' => $usersModel->pager,
-            'search' => $search
+            
+            // Pass filters back to view so they stay selected
+            'current_search'   => $search,
+            'current_sort'     => $sort,
+            'current_role'     => $role,
+            'current_status'   => $status,
+            'current_per_page' => $perPage
         ];
 
         return view('include/view_head', $data)
@@ -52,68 +80,43 @@ class Users extends BaseController
         $validation = service('validation');
         $usersModel = new UserModel();
 
-        // 1. Get the Role (View uses 'position', DB needs 'role')
-        $role = $this->request->getPost('position'); 
-
-        // 2. Determine the School ID based on the Role
-        $schoolId = '';
-        if ($role === 'ASSOCIATE') {
-            $schoolId = $this->request->getPost('associate_key');
-        } elseif ($role === 'STUDENT') {
-            $schoolId = $this->request->getPost('student_number');
-        }
-
-        // 3. Prepare Data
+        // 1. Data Mapping
+        // NOTE: We use 'school_id' directly here because view_add.php uses name="school_id" for all roles.
+        // We do NOT need the if/else logic for 'student_number' vs 'associate_key' here.
         $data = [
-            'school_id'   => $schoolId, // Use the variable we calculated above
-            'first_name'  => strtoupper($this->request->getPost('firstname')), // View uses 'firstname', not 'first_name'
-            'middle_name' => strtoupper($this->request->getPost('middlename')),
-            'last_name'   => strtoupper($this->request->getPost('lastname')),
+            'school_id'   => $this->request->getPost('school_id'),
+            'first_name'  => strtoupper($this->request->getPost('first_name')),
+            'last_name'   => strtoupper($this->request->getPost('last_name')),
             'email'       => $this->request->getPost('email'),
-            'role'        => $role,
+            'role'        => $this->request->getPost('role'),
             'status'      => 'Active', 
             'password'    => $this->request->getPost('password'),
             'verifytoken' => bin2hex(random_bytes(16))
         ];
 
-        // 4. Validate
-        // We check school_id manually here since it came from different fields
+        // 2. Manual Check (Safety)
         if (empty($data['school_id'])) {
-            return redirect()->back()->withInput()->with('error', 'ID Number is required for the selected role.');
+             return redirect()->back()->withInput()->with('error', 'ID Number is required.');
         }
 
+        // 3. Validation Rules
         $rules = [
-            'school_id' => 'is_unique[users.school_id]', // Check uniqueness
+            'school_id' => 'required|is_unique[users.school_id]',
             'email'     => 'required|valid_email|is_unique[users.email]',
-            'password'  => 'required|min_length[6]',
-            'confirmpassword' => 'matches[password]' // Good practice to validate confirm pass
+            'password'  => 'required|min_length[6]'
         ];
 
         if (!$this->validate($rules)) {
-            // Merge our manual error if needed, or just let validation handle it
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->to('users/add')->withInput()->with('errors', $validation->getErrors());
         }
 
-        // 5. Hash & Save
+        // 4. Save
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
         $usersModel->insert($data);
 
-        // 6. Email
-        $email = service('email');
-        $message = "Dear " . $data['first_name'] . ",<br><br>"
-            . "Your ITSO System account has been created.<br>"
-            . "Role: " . $role . "<br><br>"
-            . "Please contact the admin if this was a mistake.";
-
-        $email->setTo($data['email']);
-        $email->setSubject('Account Created - ITSO Inventory System');
-        $email->setMessage($message);
-        $email->send();
-
-        // Redirect to Login instead of Users list (since this is a signup)
-        return redirect()->to('auth/login')->with('success', 'Account created successfully! Please Login.');
+        return redirect()->to('users')->with('success', 'User added successfully!');
     }
+
 
     public function edit($id)
     {
@@ -170,7 +173,40 @@ class Users extends BaseController
     public function delete($id)
     {
         $usersModel = new UserModel();
-        $usersModel->delete($id);
-        return redirect()->to('users')->with('success', 'User deleted successfully!');
+        
+        // FIX: Do NOT use delete(). Use update() to change status instead.
+        $usersModel->update($id, ['status' => 'Inactive']);
+        
+        return redirect()->to('users')->with('success', 'User has been deactivated (Archived).');
+    }
+
+        public function view($id)
+    {
+        $usersModel = new UserModel();
+        
+        // 1. Fetch User Profile
+        $user = $usersModel->find($id);
+
+        if (!$user) {
+            return redirect()->to('users')->with('error', 'User not found.');
+        }
+
+        // 2. Fetch Borrowing History (Optional but very useful for Admins)
+        $history = [];
+        // Check if TransactionModel exists before trying to use it
+        if (file_exists(APPPATH . 'Models/TransactionModel.php')) {
+            $transModel = new \App\Models\TransactionModel();
+            $history = $transModel->getUserHistory($id);
+        }
+
+        $data = [
+            'title'   => 'User Profile',
+            'user'    => $user,
+            'history' => $history
+        ];
+
+        return view('include/view_head', $data)
+            . view('include/view_nav')
+            . view('users/view_user', $data); // We create this file next
     }
 }
