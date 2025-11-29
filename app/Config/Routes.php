@@ -19,15 +19,14 @@ $routes->post('users/delete/(:num)', 'Users::delete/$1');
 $routes->get('users/delete/(:num)', 'Users::delete/$1');
 
 
-// Routes for the Product controllers
-$routes->get('products', 'Products::index');
-$routes->get('products/add', 'Products::add');
-$routes->post('products/insert', 'Products::insert');
-$routes->get('products/view/(:num)', 'Products::view/$1');
-$routes->get('products/edit/(:num)', 'Products::edit/$1');
-$routes->post('products/update/(:num)', 'Products::update/$1');
-$routes->get('products/delete/(:num)', 'Products::delete/$1');
-$routes->post('products/delete/(:num)', 'Products::delete/$1');
+// Equipment Routes
+$routes->get('equipment', 'Equipment::index');
+$routes->get('equipment/add', 'Equipment::add');
+$routes->post('equipment/insert', 'Equipment::insert');
+$routes->get('equipment/view/(:segment)', 'Equipment::view/$1');
+$routes->get('equipment/edit/(:segment)', 'Equipment::edit/$1');
+$routes->post('equipment/update/(:segment)', 'Equipment::update/$1');
+$routes->get('equipment/deactivate/(:segment)', 'Equipment::deactivate/$1');
 
 //Routes for Auth
 $routes->get('login', 'Auth::login');

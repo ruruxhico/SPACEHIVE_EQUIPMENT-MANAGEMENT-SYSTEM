@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2025 at 12:32 AM
+-- Generation Time: Nov 28, 2025 at 06:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,18 @@ CREATE TABLE `equipment_assets` (
   `remarks` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `equipment_assets`
+--
+
+INSERT INTO `equipment_assets` (`property_tag`, `type_id`, `status`, `remarks`) VALUES
+('ITSO-LAP-001', 1, 'Available', ''),
+('ITSO-LAP-002', 1, 'Available', ''),
+('ITSO-LAP-003', 1, 'Available', ''),
+('ITSO-LAP-004', 1, 'Available', ''),
+('ITSO-LAP-005', 1, 'Available', ''),
+('ITSO-LAP-006', 1, 'Unusable', '');
+
 -- --------------------------------------------------------
 
 --
@@ -46,8 +58,26 @@ CREATE TABLE `equipment_types` (
   `name` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
   `total_quantity` int(11) DEFAULT 0,
-  `available_quantity` int(11) DEFAULT 0
+  `available_quantity` int(11) DEFAULT 0,
+  `image` varchar(255) DEFAULT 'default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `equipment_types`
+--
+
+INSERT INTO `equipment_types` (`type_id`, `type_code`, `name`, `description`, `total_quantity`, `available_quantity`, `image`) VALUES
+(1, 'LAP', 'Laptop', 'Standard School Laptop', 6, 6, '1764344697_0a18220177467faf43bb.jpg'),
+(2, 'DLP', 'DLP Projector', 'Standard Projector', 0, 0, 'default.png'),
+(3, 'MKB', 'Mac Keyboard', 'Apple Magic Keyboard', 0, 0, 'default.png'),
+(4, 'MMS', 'Mac Mouse', 'Apple Magic Mouse', 0, 0, 'default.png'),
+(5, 'WCM', 'Wacom Tablet', 'Drawing Tablet for Design', 0, 0, 'default.png'),
+(6, 'CBL', 'HDMI-VGA Cable', 'Video Adapter Cable', 0, 0, 'default.png'),
+(7, 'SPK', 'Speaker Set', 'External Speakers', 0, 0, 'default.png'),
+(8, 'CAM', 'Webcam', 'External USB Webcam', 0, 0, 'default.png'),
+(9, 'CRP', 'Crimping Tool', 'Network Cable Tool', 0, 0, 'default.png'),
+(10, 'TST', 'Cable Tester', 'LAN Cable Tester', 0, 0, 'default.png'),
+(11, 'KEY', 'Lab Room Key', 'Physical Key for Labs', 0, 0, 'default.png');
 
 -- --------------------------------------------------------
 
@@ -94,6 +124,20 @@ CREATE TABLE `type_accessories` (
   `type_id` int(11) DEFAULT NULL,
   `accessory_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `type_accessories`
+--
+
+INSERT INTO `type_accessories` (`accessory_id`, `type_id`, `accessory_name`) VALUES
+(9, 1, 'Laptop Charger'),
+(10, 2, 'DLP Extension Cord'),
+(11, 2, 'DLP VGA/HDMI Cable'),
+(12, 2, 'DLP Power Cable'),
+(13, 2, 'DLP Remote Control'),
+(14, 3, 'Lightning Cable'),
+(15, 4, 'Lightning Cable'),
+(16, 5, 'Wacom Pen');
 
 -- --------------------------------------------------------
 
@@ -192,7 +236,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `type_accessories`
 --
 ALTER TABLE `type_accessories`
-  MODIFY `accessory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `accessory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
