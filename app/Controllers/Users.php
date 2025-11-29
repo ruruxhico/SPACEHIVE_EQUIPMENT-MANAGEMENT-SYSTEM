@@ -81,8 +81,6 @@ class Users extends BaseController
         $usersModel = new UserModel();
 
         // 1. Data Mapping
-        // NOTE: We use 'school_id' directly here because view_add.php uses name="school_id" for all roles.
-        // We do NOT need the if/else logic for 'student_number' vs 'associate_key' here.
         $data = [
             'school_id'   => $this->request->getPost('school_id'),
             'first_name'  => strtoupper($this->request->getPost('first_name')),
@@ -94,7 +92,7 @@ class Users extends BaseController
             'verifytoken' => bin2hex(random_bytes(16))
         ];
 
-        // 2. Manual Check (Safety)
+        // 2. Manual Check
         if (empty($data['school_id'])) {
              return redirect()->back()->withInput()->with('error', 'ID Number is required.');
         }
@@ -150,8 +148,7 @@ class Users extends BaseController
             $data['role']   = $this->request->getPost('role');
             $data['status'] = $this->request->getPost('status');
         }
-        // If not ITSO, we simply DO NOT add 'role' or 'status' to the $data array.
-        // The database will keep the old values.
+        
 
         // 3. Password Update (Everyone can change this)
         $password = $this->request->getPost('password');
@@ -174,7 +171,6 @@ class Users extends BaseController
     {
         $usersModel = new UserModel();
         
-        // FIX: Do NOT use delete(). Use update() to change status instead.
         $usersModel->update($id, ['status' => 'Inactive']);
         
         return redirect()->to('users')->with('success', 'User has been deactivated (Archived).');
@@ -191,7 +187,7 @@ class Users extends BaseController
             return redirect()->to('users')->with('error', 'User not found.');
         }
 
-        // 2. Fetch Borrowing History (Optional but very useful for Admins)
+        // 2. Fetch Borrowing History
         $history = [];
         // Check if TransactionModel exists before trying to use it
         if (file_exists(APPPATH . 'Models/TransactionModel.php')) {
