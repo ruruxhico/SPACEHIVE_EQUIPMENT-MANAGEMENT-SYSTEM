@@ -48,3 +48,13 @@ $routes->get('auth/verify/(:any)', 'Auth::verify/$1');
 
 // Single Logout Route (Removed duplicate Users::logout to avoid confusion)
 $routes->get('logout', 'Auth::logout');
+
+//borrow and return
+$routes->get('transaction', 'Transaction::borrow');
+$routes->get('transaction/borrow', 'Transaction::borrow');
+
+$routes->post('transaction/submitBorrow', 'Transaction::submitBorrow');
+
+$routes->get('transaction', 'Transaction::returnList');
+$routes->get('transaction/returnList', 'Transaction::returnList');
+$routes->post('transaction/returnEquipment/(:num)', 'Transaction::returnEquipment/$1');
