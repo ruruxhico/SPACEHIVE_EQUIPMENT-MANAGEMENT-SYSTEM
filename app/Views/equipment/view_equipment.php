@@ -2,6 +2,9 @@
     
     <!-- title -->
      <br><br>
+    <div class="container-fluid mt-4">
+    
+    <br><br>
     <div class="row mb-4">
         <div class="col-12 text-center">
             <h1 class="fw-bold text-light"><?= esc($title) ?></h1>
@@ -12,13 +15,34 @@
         <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
     <?php endif; ?>
 
-    <!-- filters -->
     <form action="<?= base_url('equipment') ?>" method="get">
         
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <a href="<?= base_url('equipment/add') ?>" class="btn btn-primary shadow-sm">
-                <i class="fas fa-plus"></i> Add New Equipment
-            </a>
+            
+            <div class="d-flex align-items-center">
+                <a href="<?= base_url('equipment/add') ?>" class="btn btn-primary shadow-sm mr-3">
+                    <i class="fas fa-plus"></i> Add New Equipment
+                </a>
+
+                <div class="dropdown">
+                    <button class="btn btn-info shadow-sm dropdown-toggle" type="button" 
+                            id="dropdownReportButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-file-download"></i> Generate Reports
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownReportButton">
+                        <h6 class="dropdown-header">Download Inventory Reports:</h6>
+                        
+                        <a class="dropdown-item" href="<?= base_url('equipment/generateActiveReport') ?>">
+                            <i class="fas fa-check-circle fa-fw text-success"></i> Active Equipment (CSV)
+                        </a>
+                        
+                        <a class="dropdown-item" href="<?= base_url('equipment/generateUnusableReport') ?>">
+                            <i class="fas fa-times-circle fa-fw text-danger"></i> Unusable Equipment (CSV)
+                        </a>
+                        
+                        </div>
+                </div>
+            </div>
             <div class="form-inline">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search ID or Name..." value="<?= esc($current_search) ?>">
@@ -27,7 +51,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
 
         <div class="card mb-3 bg-light border-0">
             <div class="card-body p-3">
@@ -92,7 +116,6 @@
         </div>
     </form>
 
-    <!-- table main -->
     <div class="card bg-transparent border-0">
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -181,8 +204,6 @@
         </div>
     </div>
 </div>
-
-<!-- deac modal-->
 
 <div class="modal fade" id="deactivateModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

@@ -287,4 +287,109 @@ class Equipment extends BaseController
 
         return redirect()->to('equipment')->with('success', $successMsg);
     }
+
+    public function generateActiveReport()
+{
+    // Ensure only ITSO can access this
+    if (session()->get('role') !== 'ITSO') {
+        return redirect()->to('dashboard')->with('error', 'Access Denied.');
+    }
+
+    $assetModel = new EquipmentAssetModel();
+
+    // 1. Fetch the necessary data for Active Equipment
+    $data = $assetModel->select('
+        equipment_assets.property_tag,
+        equipment_types.name as type_name,
+        equipment_assets.status,
+        equipment_assets.remarks
+    ', false)
+    ->join('equipment_types', 'equipment_types.type_id = equipment_assets.type_id')
+    ->whereIn('equipment_assets.status', ['Available', 'Borrowed'])
+    ->orderBy('equipment_types.name', 'ASC')
+    ->findAll();
+
+    // 2. Prepare the CSV content
+    $filename = 'Active_Equipment_Report_' . date('Ymd_His') . '.csv';
+    $output = fopen('php://temp', 'w'); // Open a temporary file stream
+
+    // CSV Header (Column Titles)
+    fputcsv($output, ['Property Tag', 'Equipment Type', 'Status', 'Remarks']);
+
+    // CSV Body (Data Rows)
+    foreach ($data as $row) {
+        fputcsv($output, [
+            $row['property_tag'],
+            $row['type_name'],
+            $row['status'],
+            $row['remarks']
+        ]);
+    }
+
+    // 3. Send the file headers and output the content
+    rewind($output); // Rewind the file pointer
+    $csv_content = stream_get_contents($output);
+    fclose($output);
+
+    // Set headers for download
+    return $this->response
+                ->setStatusCode(200)
+                ->setContentType('text/csv')
+                ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+                ->setBody($csv_content);
+}
+
+/**
+ * Generates and downloads a report for all Unusable Equipment (Maintenance or Unusable).
+ */
+public function generateUnusableReport()
+{
+    // Ensure only ITSO can access this
+    if (session()->get('role') !== 'ITSO') {
+        return redirect()->to('dashboard')->with('error', 'Access Denied.');
+    }
+
+    $assetModel = new EquipmentAssetModel();
+
+    // 1. Fetch the necessary data for Unusable Equipment
+    $data = $assetModel->select('
+        equipment_assets.property_tag,
+        equipment_types.name as type_name,
+        equipment_assets.status,
+        equipment_assets.remarks
+    ', false)
+    ->join('equipment_types', 'equipment_types.type_id = equipment_assets.type_id')
+    ->whereIn('equipment_assets.status', ['Maintenance', 'Unusable'])
+    ->orderBy('equipment_types.name', 'ASC')
+    ->findAll();
+
+    // 2. Prepare the CSV content
+    $filename = 'Unusable_Equipment_Report_' . date('Ymd_His') . '.csv';
+    $output = fopen('php://temp', 'w'); // Open a temporary file stream
+
+    // CSV Header
+    fputcsv($output, ['Property Tag', 'Equipment Type', 'Status', 'Remarks']);
+
+    // CSV Body
+    foreach ($data as $row) {
+        fputcsv($output, [
+            $row['property_tag'],
+            $row['type_name'],
+            $row['status'],
+            $row['remarks']
+        ]);
+    }
+
+    // 3. Send the file headers and output the content
+    rewind($output);
+    $csv_content = stream_get_contents($output);
+    fclose($output);
+
+    // Set headers for download
+    return $this->response
+                ->setStatusCode(200)
+                ->setContentType('text/csv')
+                ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+                ->setBody($csv_content);
+}
 }
