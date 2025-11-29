@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 // 1. THE TRAFFIC COP (Root URL)
 // Checks if logged in. If yes -> Dashboard. If no -> Landing Page.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Index::index');
 
 // 2. THE DASHBOARD (Logged In Users Only)
 // Checks User Role (ITSO, Associate, Student) and shows specific view.
@@ -48,3 +48,13 @@ $routes->get('auth/verify/(:any)', 'Auth::verify/$1');
 
 // Single Logout Route (Removed duplicate Users::logout to avoid confusion)
 $routes->get('logout', 'Auth::logout');
+
+//borrow and return
+$routes->get('transaction', 'Transaction::borrow');
+$routes->get('transaction/borrow', 'Transaction::borrow');
+
+$routes->post('transaction/submitBorrow', 'Transaction::submitBorrow');
+
+$routes->get('transaction', 'Transaction::returnList');
+$routes->get('transaction/returnList', 'Transaction::returnList');
+$routes->post('transaction/returnEquipment/(:num)', 'Transaction::returnEquipment/$1');

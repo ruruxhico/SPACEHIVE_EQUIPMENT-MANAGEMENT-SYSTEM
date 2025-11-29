@@ -39,11 +39,24 @@ $userRole = session()->get('role');
                 <!-- This is the Reservation Link logic -->
                 <?php if ($userRole === 'ITSO' || $userRole === 'ASSOCIATE'): ?>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="<?= base_url('transaction/reservation');?>">
                             <i class="fas fa-calendar-check"></i> Reservations
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="<?= base_url('transaction/borrow');?>">
+                            <i class="fas fa-calendar-check"></i> Borrow
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="<?= base_url('transaction/returnList');?>">
+                            <i class="fas fa-calendar-check"></i> Return
+                        </a>
+                    </li>
                 <?php endif; ?>
+                
 
             </ul>
 
