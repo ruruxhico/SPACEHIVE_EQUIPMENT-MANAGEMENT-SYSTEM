@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2025 at 06:49 PM
+-- Generation Time: Nov 29, 2025 at 10:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -160,6 +160,15 @@ CREATE TABLE `users` (
   `verifytoken` varchar(255) NOT NULL,
   `isverified` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`school_id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `role`, `associate_key`, `student_number`, `status`, `created_at`, `verifytoken`, `isverified`) VALUES
+('12345678', 'DANIELLE', '', 'MERCADO', 'dnmercado@fit.edu.ph', '$2y$10$b2alBg8GEbhe.t3k3gpSY.gvlewDQXoXF7/DCD9uVDeTMegizfBl2', 'ITSO', NULL, NULL, 'Active', '2025-11-29 00:06:17', '63d7192bbdf1de395f668a6c69dcd3d3', 0),
+('202312294', 'SOPHIA', 'ISABELLE', 'PAYPON', 'sbpaypon@fit.edu.ph', '$2y$10$qxdMuTuUa2f5JdL213DGreK0usAbZu7DJ5LAwY1OZ1rId50eY7Jna', 'Student', NULL, NULL, 'Active', '2025-11-28 22:18:11', '88a1e32790bf66041b36f1d3865400c9', 0),
+('87654321', 'BJEA ', 'MARELLE', 'DANTIC', 'badantic@fit.edu.ph', '$2y$10$EqZ9255C2jEXy/ucWmxiBuYXJzjyhRyfALsMTkKZbQq2sr2WOayb6', 'Associate', NULL, NULL, 'Active', '2025-11-29 00:20:04', '889780ee5d105615a3c584c4337a0a2c', 0);
 
 --
 -- Indexes for dumped tables

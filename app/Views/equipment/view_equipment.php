@@ -1,9 +1,10 @@
 <div class="container-fluid mt-4">
     
     <!-- title -->
+     <br><br>
     <div class="row mb-4">
         <div class="col-12 text-center">
-            <h2 class="text-light font-weight-bold"><?= esc($title) ?></h2>
+            <h1 class="fw-bold text-light"><?= esc($title) ?></h1>
         </div>
     </div>
 
