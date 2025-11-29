@@ -1,14 +1,14 @@
-<?php
+<?php 
 
 namespace App\Controllers;
 
- use App\Models\UserModel;
+use App\Models\UserModel;
 
 class Auth extends BaseController
 {
     public function index()
     {
-        $data ['title'] = 'Dashboard';
+        $data['title'] = 'Dashboard';
         return view('include\view_head', $data)
             .view('include\view_nav')
             .view('view_index', $data);
@@ -23,55 +23,36 @@ class Auth extends BaseController
 
     public function loginSubmit()
     {
-        //dd('LoginSubmit reached');
         $session = session();
         $usersModel = new UserModel();
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
+        
         $user = $usersModel->where('email', $email)->first();
 
-        /* if ($user) {
-            //if ($password === $user['password']) {
-            if (password_verify($password, $user['password'])) {
-                // Set session data
-                $sessionData = [
-                    'id' => $user['id'],
-                    'email' => $user['email'],
-                    'isLoggedIn' => true,
-                ];
-                $session->set($sessionData);
-                return redirect()->to('/dashboard');
-            } else {
-                $session->setFlashdata('error', 'Incorrect password.');
-                return redirect()->back()->withInput();
-            }
-        } else {
+        if (!$user) {
             $session->setFlashdata('error', 'Email not found.');
             return redirect()->back()->withInput();
-        } */  
+        }
 
-            if (!$user) {
-                $session->setFlashdata('error', 'Email not found.');
-                return redirect()->back()->withInput();
-            }
+        if (!password_verify($password, $user['password'])) {
+            $session->setFlashdata('error', 'Incorrect password.');
+            return redirect()->back()->withInput();
+        }
 
-            // Correct way to verify hashed password
-            if (!password_verify($password, $user['password'])) {
-                $session->setFlashdata('error', 'Incorrect password.');
-                return redirect()->back()->withInput();
-            }
+        // Login success
+        $sessionData = [
+            'id' => $user['school_id'], // Use school_id as the session ID
+            'email' => $user['email'],
+            'role' => $user['role'],    // Useful to store role in session
+            'isLoggedIn' => true,
+        ];
 
-            // Login success — set session
-            $sessionData = [
-                'id' => $user['id'],
-                'email' => $user['email'],
-                'isLoggedIn' => true,
-            ];
-
-            $session->set($sessionData);
-            return redirect()->to('/dashboard');
+        $session->set($sessionData);
+        return redirect()->to('/dashboard');
     }
 
+    // 1. Show the Sign Up Page (GET)
     public function signup()
     {
         $data['title'] = 'Sign Up';
@@ -79,64 +60,71 @@ class Auth extends BaseController
             .view('auth\view_signup');
     }
 
+    // 2. Handle the Form Submission (POST)
     public function signupSubmit()
     {
-        $session = session();
-        $validation = service('validation');
         $usersModel = new UserModel();
+        $validation = service('validation');
 
-        $data = array(
-            'position' => strtoupper($this->request->getPost('position')),
-            'firstname' => strtoupper($this->request->getPost('firstname')),
-            'middlename' => strtoupper($this->request->getPost('middlename')),
-            'lastname' => strtoupper($this->request->getPost('lastname')),
-            'email' => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
-            'confirmpassword' => $this->request->getPost('confirmpassword'),
+        // Get the Role (View uses 'position', DB uses 'role')
+        $role = $this->request->getPost('position'); 
+
+        // Determine School ID based on Role
+        $schoolId = '';
+        if ($role === 'ASSOCIATE') {
+            $schoolId = $this->request->getPost('associate_key');
+        } elseif ($role === 'STUDENT') {
+            $schoolId = $this->request->getPost('student_number');
+        }
+
+        // Prepare Data
+        $data = [
+            'school_id'   => $schoolId, 
+            'first_name'  => strtoupper($this->request->getPost('firstname')),
+            'middle_name' => strtoupper($this->request->getPost('middlename')),
+            'last_name'   => strtoupper($this->request->getPost('lastname')),
+            'email'       => $this->request->getPost('email'),
+            'role'        => $role,
+            'status'      => 'Active',
+            'password'    => $this->request->getPost('password'),
             'verifytoken' => bin2hex(random_bytes(16))
-        );  
+        ];
 
-        if(! $validation->run($data, 'insert')){
-            //validation fails = reload signup form
+        // Manual Check for ID
+        if (empty($data['school_id'])) {
+            return redirect()->back()->withInput()->with('error', 'ID Number is required for the selected role.');
+        }
+
+        // Validation Rules
+        $rules = [
+            'email'           => 'required|valid_email|is_unique[users.email]',
+            'password'        => 'required|min_length[6]',
+            'confirmpassword' => 'matches[password]'
+        ];
+
+        if (!$this->validate($rules)) {
             $data['title'] = 'Sign Up';
             $data['errors'] = $validation->getErrors();
             return view('include\view_head', $data)
-                .view('auth\view_signup', $data);
+                .view('auth\view_signup', $data); // Pass errors back to view
         }
 
+        // Hash & Save
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        unset($data['confirmpassword']);
+        
         $usersModel->insert($data);
 
-        $session->setFlashdata('success', 'Account created successfully. Please log in.');
-        
-        $email = service('email');
-
-        $message = "Dear ".$data['firstname']." ".$data['lastname'].",<br><br>"
-            ."Your staff account has been created successfully. Please click the link to verify your account:<br>"
-            ."<a href=".base_url('auth/verify/'.$data['verifytoken']).">Verify Account</a><br><br>"
-            ."Best regards,<br>"
-            ."Lola Nena's Sisigan Team";
-
-        $email->setTo($data['email']);
-        $email->setSubject('Account Verification - Lola Nena\'s Sisigan');
-        $email->setMessage($message);
-        $email->send();
-
-        return redirect()->to(base_url('auth/login'));
+        return redirect()->to('auth/login')->with('success', 'Account created successfully! Please login.');
     }
 
-    public function verify($token){
-        $usersModel = model('Model_Users');
-
+    public function verify($token)
+    {
+        $usersModel = new UserModel();
         $user = $usersModel->where('verifytoken', $token)->first();
 
         if($user){
-            $usersModel->update($user['id'], [
-                'isverified' => 1
-            ]);
-
-            return redirect()->to('auth/login');
+            $usersModel->update($user['school_id'], ['isverified' => 1]);
+            return redirect()->to('auth/login')->with('success', 'Account verified!');
         }
     }
 
@@ -146,5 +134,3 @@ class Auth extends BaseController
         return redirect()->to(base_url('auth/login'))->with('success', 'You have logged out successfully.');
     }
 }
-
-?>

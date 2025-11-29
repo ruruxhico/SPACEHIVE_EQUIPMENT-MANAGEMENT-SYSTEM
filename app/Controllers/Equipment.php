@@ -9,6 +9,11 @@ class Equipment extends BaseController
 {
     public function index()
     {
+        // SECURITY CHECK: Only ITSO can access this
+        if (session()->get('role') !== 'ITSO') {
+            return redirect()->to('dashboard')->with('error', 'Access Denied: You are not authorized to view Equipment.');
+        }
+
         $assetModel = new EquipmentAssetModel();
         $typeModel  = new EquipmentTypeModel(); 
         

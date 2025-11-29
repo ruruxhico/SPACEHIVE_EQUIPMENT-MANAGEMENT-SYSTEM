@@ -16,15 +16,19 @@ class TransactionModel extends Model
         'status', 'issued_by', 'received_by'
     ];
 
-    public function getHistory()
+    // THIS IS THE MISSING FUNCTION CAUSING THE ERROR
+    public function getUserHistory($userId)
     {
-        return $this->select('transactions.*, 
-                              users.first_name, users.last_name, 
-                              equipment_assets.property_tag, equipment_types.name as item_name')
-                    ->join('users', 'users.school_id = transactions.borrower_id')
-                    ->join('equipment_assets', 'equipment_assets.property_tag = transactions.item_tag')
-                    ->join('equipment_types', 'equipment_types.type_id = equipment_assets.type_id')
-                    ->orderBy('borrowed_at', 'DESC')
-                    ->findAll();
+        return $this->select('
+                transactions.*, 
+                equipment_assets.property_tag, 
+                equipment_types.name as item_name,
+                equipment_types.image
+            ')
+            ->join('equipment_assets', 'equipment_assets.property_tag = transactions.item_tag')
+            ->join('equipment_types', 'equipment_types.type_id = equipment_assets.type_id')
+            ->where('transactions.borrower_id', $userId)
+            ->orderBy('transactions.borrowed_at', 'DESC')
+            ->findAll();
     }
 }

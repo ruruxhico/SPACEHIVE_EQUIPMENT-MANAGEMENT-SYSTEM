@@ -1,61 +1,107 @@
-<main>
-    <?php if (session()->getFlashdata('error')): ?>
-    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
-    <?php endif; ?>
-
-    <?php if (session()->getFlashdata('success')): ?>
-        <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
-    <?php endif; ?>
+<main class="container mt-5">
     
-    <?php
-        if(isset($errors)):
-    ?>
-            <div class="alert alert-danger">
-                <p><?= implode('<br>', $errors); ?></p>
-            </div>
-    <?php
-        endif;
-    ?>
+    <!-- ERROR MESSAGES -->
+    <?php if(isset($errors)): ?>
+        <div class="alert alert-danger">
+            <p><?= implode('<br>', $errors); ?></p>
+        </div>
+    <?php endif; ?>
 
-    <div class="col col-md-5 mx-auto">
-        <form id="userForm" action="<?= base_url('users/update/'.$user['id']) ?>" method="post">
-            <?= csrf_field() ?>
-            <div class="form-group mb-2">
-                <label for="firstname" class="form-label">First Name</label>
-                <input type="text" name="firstname" id="firstname" class="form-control" style="text-transform: uppercase" value="<?= $user['firstname']; ?>">
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 80vh">
+        <div class="col col-md-6 mx-auto">
+            <h2 class="mb-3 text-center">Edit User Details</h2>
+
+            <div class="p-4 rounded shadow bg-white text-dark">
+                
+                <form id="userForm" action="<?= base_url('users/update/' . $user['school_id']) ?>" method="post">
+                    
+                    <!-- School ID (Read Only) -->
+                    <div class="form-group mb-3">
+                        <label class="form-label font-weight-bold">School ID / Employee ID</label>
+                        <input type="text" class="form-control bg-light" value="<?= esc($user['school_id']); ?>" readonly>
+                    </div>
+
+                    <!-- Names (Editable by everyone) -->
+                    <div class="form-group mb-3">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control" 
+                               style="text-transform: uppercase" 
+                               value="<?= esc($user['first_name']); ?>" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="middle_name" class="form-label">Middle Name</label>
+                        <input type="text" name="middle_name" id="middle_name" class="form-control" 
+                               style="text-transform: uppercase" 
+                               value="<?= esc($user['middle_name']); ?>">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control" 
+                               style="text-transform: uppercase" 
+                               value="<?= esc($user['last_name']); ?>" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" 
+                               value="<?= esc($user['email']); ?>" required>
+                    </div>
+
+                    <hr>
+
+                    <!-- SECURITY CHECK: Get Logged In Role -->
+                    <?php $myRole = session()->get('role'); ?>
+
+                    <!-- ROLE FIELD -->
+                    <div class="form-group mb-3">
+                        <label for="role" class="form-label font-weight-bold">Role</label>
+                        
+                        <?php if ($myRole === 'ITSO'): ?>
+                            <!-- ADMIN VIEW: Show Dropdown -->
+                            <select name="role" id="role" class="form-control">
+                                <option value="ITSO" <?= $user['role'] == 'ITSO' ? 'selected' : '' ?>>ITSO (Admin)</option>
+                                <option value="ASSOCIATE" <?= $user['role'] == 'ASSOCIATE' ? 'selected' : '' ?>>ASSOCIATE</option>
+                                <option value="STUDENT" <?= $user['role'] == 'STUDENT' ? 'selected' : '' ?>>STUDENT</option>
+                            </select>
+                        <?php else: ?>
+                            <!-- STUDENT VIEW: Read Only -->
+                            <input type="text" class="form-control bg-light" value="<?= esc($user['role']) ?>" readonly>
+                            <!-- Important: We do not send 'role' in POST so the controller ignores it -->
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- STATUS FIELD -->
+                    <div class="form-group mb-3">
+                        <label for="status" class="form-label font-weight-bold">Account Status</label>
+                        
+                        <?php if ($myRole === 'ITSO'): ?>
+                            <!-- ADMIN VIEW: Show Dropdown -->
+                            <select name="status" id="status" class="form-control">
+                                <option value="Active" <?= $user['status'] == 'Active' ? 'selected' : '' ?>>Active</option>
+                                <option value="Inactive" <?= $user['status'] == 'Inactive' ? 'selected' : '' ?>>Inactive</option>
+                            </select>
+                        <?php else: ?>
+                            <!-- STUDENT VIEW: Read Only -->
+                            <input type="text" class="form-control bg-light" value="<?= esc($user['status']) ?>" readonly>
+                        <?php endif; ?>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">New Password <small class="text-muted">(Leave blank to keep current)</small></label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="<?= base_url('dashboard') ?>" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-warning text-dark font-weight-bold">Update Changes</button>
+                    </div>
+
+                </form>
             </div>
-            <div class="form-group mb-2">
-                <label for="middlename" class="form-label">Middle Name</label>
-                <input type="text" name="middlename" id="middlename" class="form-control" style="text-transform: uppercase" value="<?= $user['middlename']; ?>"> 
-            </div>
-            <div class="form-group mb-2">
-                <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" name="lastname" id="lastname" class="form-control" style="text-transform: uppercase" value="<?= $user['lastname']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="position" class="form-label">Role</label>
-                <input type="text" name="position" id="position" class="form-control" style="text-transform: uppercase" value="<?= $user['position']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="position" class="form-label">Status</label>
-                <input type="text" name="position" id="position" class="form-control" style="text-transform: uppercase" value="<?= $user['position']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="<?= $user['email']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control">
-            </div>
-            <div class="form-group mb-2">
-                <label for="confirmpassword" class="form-label">Confirm Password</label>
-                <input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success">Save</button>
-                <a href="<?= base_url('users'); ?>" class="btn btn-warning">Back</a>
-            </div>
-        </form>
+        </div>
     </div>
 </main>
